@@ -1,0 +1,25 @@
+spring:
+  mail:
+    host: localhost
+  data:
+    redis:
+      host: 127.0.0.1
+      repositories:
+        enabled: false
+  test:
+    database:
+      replace: none
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    open-in-view: false
+  sql:
+    init:
+      mode: never
+  datasource:
+    hikari:
+      connection-init-sql: CREATE EXTENSION IF NOT EXISTS ltree;
+
+logging:
+  level:
+    org.testcontainers.utility.RegistryAuthLocator: ERROR

@@ -1,0 +1,92 @@
+spring:
+  application:
+    name: backend
+  config:
+    import: optional:file:.env[.properties]
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 12MB
+  datasource:
+    url: jdbc:postgresql://localhost:5432/oes_db
+    username: ${DB_USERNAME:}
+    password: ${DB_PASSWORD:}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      connection-init-sql: CREATE EXTENSION IF NOT EXISTS ltree;
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+      repositories:
+        enabled: false
+    web:
+      pageable:
+        default-page-size: 50
+        max-page-size: 100
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+    defer-datasource-initialization: true
+  sql:
+    init:
+      mode: always
+      data-locations: classpath:seed.sql
+  jackson:
+    time-zone: UTC
+  mail:
+    host: smtp.mailtrap.io
+    port: 2525
+    username: ${MAIL_USERNAME:}
+    password: ${MAIL_PASSWORD:}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+app:
+  storage:
+    endpoint: ${STORAGE_ENDPOINT:http://localhost:9000}
+    bucket: ${STORAGE_BUCKET:oes-dev-student-submissions}
+    access-key: ${STORAGE_ACCESS_KEY:minioadmin}
+    secret-key: ${STORAGE_SECRET_KEY:miniopassword}
+    region: ${STORAGE_REGION:us-east-1}
+    max-file-size: 10MB
+    max-file-count: 5
+  text:
+    max-characters: 20000
+  base-url: ${APP_BASE_URL:http://localhost:8080}
+  cors:
+    allowed-origins: ${APP_CORS_ALLOWED_ORIGINS:http://localhost:5173}
+
+server:
+  servlet:
+    session:
+      cookie:
+        http-only: true
+        secure: false
+
+management:
+  health:
+    redis:
+      enabled: false
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+    enabled: true
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
+
+logging:
+  file:
+    name: logs/oes-backend.log
+  pattern:
+    console: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%5p) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"

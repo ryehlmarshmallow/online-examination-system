@@ -1,0 +1,8 @@
+package com.github.ryehlmarshmallow.oes.features.questionset.dto;
+
+import java.util.UUID;
+
+public record MoveNodeRequest(
+    UUID previousSiblingId
+) {
+}

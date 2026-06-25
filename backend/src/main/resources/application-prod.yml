@@ -1,0 +1,33 @@
+springdoc:
+  api-docs:
+    enabled: false
+  swagger-ui:
+    enabled: false
+
+server:
+  servlet:
+    session:
+      cookie:
+        secure: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  cloudfoundry:
+    enabled: false
+
+spring:
+  data:
+    web:
+      pageable:
+        default-page-size: 50
+        max-page-size: 100
+
+logging:
+  file:
+    name: logs/oes-backend-prod.log
+  level:
+    org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver: WARN
+    root: INFO
