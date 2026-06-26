@@ -308,7 +308,7 @@ export function ExamTable({
           noResultsMessage="No exams found."
         />
       </div>
-      <DataTablePagination table={table} />
+      <DataTablePagination table={table} hideSelectionText />
     </div>
   )
 }

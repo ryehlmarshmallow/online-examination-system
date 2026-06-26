@@ -139,23 +139,27 @@ function DraggableRow<TData>({
 export function DataTablePagination<TData>({
                                              table,
                                              renderDetails,
+                                             hideSelectionText = false,
                                            }: {
   table: TableType<TData>
   renderDetails?: (total: number, selected: number) => ReactNode
+  hideSelectionText?: boolean
 }) {
   return (
     <div className="flex items-center justify-between px-2">
       <div className="flex-1 text-sm text-muted-foreground">
-        {renderDetails ? (
-          renderDetails(
-            table.getFilteredRowModel().rows.length,
-            table.getFilteredSelectedRowModel().rows.length
+        {!hideSelectionText && (
+          renderDetails ? (
+            renderDetails(
+              table.getFilteredRowModel().rows.length,
+              table.getFilteredSelectedRowModel().rows.length
+            )
+          ) : (
+            <>
+              {table.getFilteredSelectedRowModel().rows.length} of{" "}
+              {table.getFilteredRowModel().rows.length} row(s) selected.
+            </>
           )
-        ) : (
-          <>
-            {table.getFilteredSelectedRowModel().rows.length} of{" "}
-            {table.getFilteredRowModel().rows.length} row(s) selected.
-          </>
         )}
       </div>
       <div className="flex items-center space-x-6 lg:space-x-8">
